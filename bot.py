@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 import requests
 from twilio.twiml.messaging_response import MessagingResponse
 
@@ -17,15 +17,15 @@ def bot():
             data = r.json()
             quote = f'{data["content"]} ({data["author"]})'
         else:
-            quote = 'I could not retrieve a quote at this time, sorry'
-            msg.body(quote)
-            responded = True
+            quote = 'I could not retrieve a quote at this time, sorry.'
+        msg.body(quote)
+        responded = True
     if 'cat' in incoming_msg:
         # return a cat pic
         msg.media('https://cataas.com/cat')
         responded = True
     if not responded:
-        msg.body('I only know about famous quotes and cat pictures, sorry!')
+        msg.body('I only know about famous quotes and cats, sorry!')
     return str(resp)
 
 # run server
